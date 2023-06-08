@@ -15,6 +15,11 @@ class Xpress {
         this.middlewares = [];
     }
 
+    // GET method handler
+    get(path, handler) {
+        this.routes.GET[path] = handler;
+    }
+
     // Start listening on the specified port with the given callback
     listen(port, callback) {
         const server = http.createServer();
