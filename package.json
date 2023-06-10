@@ -1,0 +1,30 @@
+{
+  "name": "xpress",
+  "version": "1.0.0",
+  "description": "simple and minimalistic web framework",
+  "main": "index.js",
+  "dependencies": {
+    "mime": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HritikR/Xpress.git"
+  },
+  "keywords": [
+    "xpress",
+    "express",
+    "express-like",
+    "server",
+    "webframework"
+  ],
+  "author": "HritikR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HritikR/Xpress/issues"
+  },
+  "homepage": "https://github.com/HritikR/Xpress#readme"
+}
