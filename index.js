@@ -55,6 +55,32 @@ class Xpress {
         }
     }
 
+    // static method to handle cors
+    static cors(options = {}) {
+        const defaultOptions = {
+            allowedOrigins: '*',
+            allowedMethods: 'GET, POST, PUT, DELETE',
+            allowedHeaders: 'Content-Type, Authorization',
+        };
+
+        const corsOptions = { ...defaultOptions, ...options };
+
+        return (req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', corsOptions.allowedOrigins); // Allow all origins
+            res.setHeader('Access-Control-Allow-Methods', corsOptions.allowedMethods); // Allow all methods
+            res.setHeader('Access-Control-Allow-Headers', corsOptions.allowedHeaders);  // Allow all headers
+            res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
+
+            // Handle preflight request
+            if (req.method === 'OPTIONS') {
+                res.statusCode = 204;
+                res.end();
+            } else {
+                next();
+            }
+        };
+    }
+
     // static method to serve static files
     static static(dirPath) {
         return (req, res, next) => {
