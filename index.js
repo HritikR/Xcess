@@ -55,6 +55,32 @@ class Xpress {
         }
     }
 
+    // static method to serve static files
+    static static(dirPath) {
+        return (req, res, next) => {
+            const { url } = req;
+            const filePath = path.join(dirPath, url);
+            // Check if the file exists
+            fs.stat(filePath, (err, stats) => {
+                if (err) {
+                    // If the file does not exist, invoke the next middleware
+                    next();
+                } else {
+                    // If the file exists, serve the file
+                    const contentType = mime.getType(filePath);
+                    res.setHeader('Content-Type', contentType);
+                    const fileStream = fs.createReadStream(filePath);
+                    fileStream.on('error', (err) => {
+                        res.statusCode = 500;
+                        res.end('Internal Server Error');
+                    });
+
+                    fileStream.pipe(res);
+                }
+            });
+        };
+    }
+
     // function to route the request to respective method handlers
     #handleRequest(req, res) {
         const { method, url } = req;
@@ -67,6 +93,7 @@ class Xpress {
         }
     }
 
+    // function to handle middlewares
     #handleMiddlewares(req, res) {
         // Implement the next() function
         const next = () => {
