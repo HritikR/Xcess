@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const mime = require('mime');
 
-class Xpress {
+class Xcess {
     /**
-     * Initialize the Xpress instance with empty routes and middlewares
+     * Initialize the Xcess instance with empty routes and middlewares
      */
     constructor() {
         // Initialize the routes object with different HTTP methods
@@ -218,4 +218,4 @@ class Xpress {
     }
 }
 
-module.exports = Xpress;
+module.exports = Xcess;

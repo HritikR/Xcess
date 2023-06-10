@@ -1,5 +1,5 @@
 {
-  "name": "xpress",
+  "name": "xcess",
   "version": "1.0.0",
   "description": "simple and minimalistic web framework",
   "main": "index.js",
@@ -12,10 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HritikR/Xpress.git"
+    "url": "git+https://github.com/HritikR/Xcess.git"
   },
   "keywords": [
-    "xpress",
+    "xcess",	
+    "xpress", 
     "express",
     "express-like",
     "server",
@@ -24,7 +25,7 @@
   "author": "HritikR",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HritikR/Xpress/issues"
+    "url": "https://github.com/HritikR/Xcess/issues"
   },
-  "homepage": "https://github.com/HritikR/Xpress#readme"
+  "homepage": "https://github.com/HritikR/Xcess#readme"
 }

@@ -1,6 +1,6 @@
-# Xpress - Simple and Minimalistic Web Framework 
+# Xcess - Simple and Minimalistic Web Framework 
 
-Xpress is a lightweight, express-like and easy-to-use web framework for Node.js, inspired by Express.js. It provides a simple API for creating web applications and handling HTTP requests and responses. With Xpress, you can define routes, use middleware functions, handle static file serving, and enable Cross-Origin Resource Sharing (CORS).
+Xcess is a lightweight, express-like and easy-to-use web framework for Node.js, inspired by Express.js. It provides a simple API for creating web applications and handling HTTP requests and responses. With Xpress, you can define routes, use middleware functions, handle static file serving, and enable Cross-Origin Resource Sharing (CORS).
 
 ## Features
 
@@ -11,20 +11,20 @@ Xpress is a lightweight, express-like and easy-to-use web framework for Node.js,
 
 ## Installation
 
-To install Xpress, you can use npm:
+To install Xcess, you can use npm:
 
 ```bash
-npm install xpress
+npm install xcess
 ```
 
 ## Usage
 
-Here's an example of how you can use Xpress:
+Here's an example of how you can use Xcess:
 
 ```javascript
-const xpress = require('xpress');
+const xcess = require('xcess');
 
-const app = new xpress();
+const app = new xcess();
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 ---
 ## Route Methods
 
-Xpress provides several route methods that allow you to define handlers for different HTTP methods. Here are the available route methods:
+Xcess provides several route methods that allow you to define handlers for different HTTP methods. Here are the available route methods:
 
 ### `app.get(path, handler)`
 
