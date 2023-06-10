@@ -27,6 +27,6 @@ const xpress = require('xpress');
 const app = new xpress();
 
 app.get('/', (req, res) => {
-    res.end('Hello World!');
+    res.send('Hello World!');
 })
 ```
