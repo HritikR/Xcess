@@ -40,9 +40,25 @@ class Xpress {
         this.routes.ALL[path] = handler;
     }
 
+    // function to route the request to respective method handlers
+    #handleRequest(req, res) {
+        const { method, url } = req;
+        const routeHandler = this.routes[method][url] || this.routes.ALL[url];
+        if (routeHandler) {
+            routeHandler(req, res);
+        } else {
+            res.statusCode = 404;
+            res.end(`Cannot ${method} ${url}`);
+        }
+    }
+
     // Start listening on the specified port with the given callback
     listen(port, callback) {
-        const server = http.createServer();
+        const server = http.createServer((req, res) => {
+            this.#handleRequest(req, res);
+        });
         server.listen(port, callback);
     }
 }
+
+module.exports = Xpress;
