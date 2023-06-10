@@ -190,6 +190,28 @@ class Xpress {
      */
     listen(port, callback) {
         const server = http.createServer((req, res) => {
+            // Add the status method to the response object
+            res.status = (code) => {
+                res.statusCode = code;
+                return res;
+            };
+
+            // Add the json method to the response object
+            res.json = (data) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(data));
+            };
+
+            // Add the send method to the response object
+            res.send = (body) => {
+                if (typeof body === 'object') {
+                    res.json(body);
+                } else {
+                    res.setHeader('Content-Type', 'text/plain');
+                    res.end(body);
+                }
+            };
+
             this.#handleMiddlewares(req, res);
         });
         server.listen(port, callback);
