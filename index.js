@@ -4,8 +4,11 @@ const path = require('path');
 const mime = require('mime');
 
 class Xpress {
-    // Initialize the Xpress instance with empty routes and middlewares
+    /**
+     * Initialize the Xpress instance with empty routes and middlewares
+     */
     constructor() {
+        // Initialize the routes object with different HTTP methods
         this.routes = {
             GET: {},
             POST: {},
@@ -18,36 +21,62 @@ class Xpress {
         this.middlewares = [];
     }
 
-    // GET method handler
+    /**
+     * Add a GET route handler
+     * @param {string} path - The route path
+     * @param {function} handler - The handler function for the route
+     */
     get(path, handler) {
         this.routes.GET[path] = handler;
     }
 
-    // POST method handler
+    /**
+     * Add a POST route handler
+     * @param {string} path - The route path
+     * @param {function} handler - The handler function for the route
+     */
     post(path, handler) {
         this.routes.POST[path] = handler;
     }
 
-    // PUT method handler
+    /**
+     * Add a PUT route handler
+     * @param {string} path - The route path
+     * @param {function} handler - The handler function for the route
+     */
     put(path, handler) {
         this.routes.PUT[path] = handler;
     }
 
-    // DELETE method handler
+    /**
+     * Add a DELETE route handler
+     * @param {string} path - The route path
+     * @param {function} handler - The handler function for the route
+     */
     delete(path, handler) {
         this.routes.DELETE[path] = handler;
     }
 
-    // ALL method handler
+    /**
+     * Add a route handler for all HTTP methods
+     * @param {string} path - The route path
+     * @param {function} handler - The handler function for the route
+     */
     all(path, handler) {
         this.routes.ALL[path] = handler;
     }
 
-    // use method handler
+    /**
+     * Add a middleware handler
+     * @param {string|function} path - The path or the middleware function
+     * @param {function} handler - The handler function for the middleware
+     */
     use(path, handler) {
         if (typeof path === 'function') {
+            // If the path is a function, it is a global middleware
             this.middlewares.push(path);
         } else {
+            // If the path is a string, it is a path-based middleware
             this.middlewares.push((req, res, next) => {
                 if (req.url.startsWith(path) || path === '/' || path === '*') {
                     handler(req, res, next);
@@ -58,7 +87,11 @@ class Xpress {
         }
     }
 
-    // static method to handle cors
+    /**
+     * Handle Cross-Origin Resource Sharing (CORS)
+     * @param {object} options - The CORS options
+     * @returns {function} - The CORS middleware function
+     */
     static cors(options = {}) {
         const defaultOptions = {
             allowedOrigins: '*',
@@ -84,7 +117,11 @@ class Xpress {
         };
     }
 
-    // static method to serve static files
+    /**
+     * Serve static files from a directory
+     * @param {string} dirPath - The directory path to serve static files from
+     * @returns {function} - The static file middleware function
+     */
     static static(dirPath) {
         return (req, res, next) => {
             const { url } = req;
@@ -110,7 +147,12 @@ class Xpress {
         };
     }
 
-    // function to route the request to respective method handlers
+    /**
+     * Route the request to the respective method handlers
+     * @private
+     * @param {http.IncomingMessage} req - request object
+     * @param {http.ServerResponse} res - response object
+     */
     #handleRequest(req, res) {
         const { method, url } = req;
         const routeHandler = this.routes[method][url] || this.routes.ALL[url];
@@ -122,11 +164,15 @@ class Xpress {
         }
     }
 
-    // function to handle middlewares
+    /**
+     * Handle the middleware stack
+     * @private
+     * @param {http.IncomingMessage} req - request object
+     * @param {http.ServerResponse} res - response object
+     */
     #handleMiddlewares(req, res) {
-        // Implement the next() function
         const next = () => {
-            this.handleMiddlewares(req, res);
+            this.#handleMiddlewares(req, res);
         };
 
         const currentMiddleware = this.middlewares.shift();
@@ -137,7 +183,11 @@ class Xpress {
         }
     }
 
-    // Start listening on the specified port with the given callback
+    /**
+     * Start listening on the specified port with the given callback
+     * @param {number} port - The port number to listen on
+     * @param {function} callback - The callback function to be executed on successful server start
+     */
     listen(port, callback) {
         const server = http.createServer((req, res) => {
             this.#handleMiddlewares(req, res);
