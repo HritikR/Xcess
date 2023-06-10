@@ -1,6 +1,6 @@
 # Xcess - Simple and Minimalistic Web Framework 
 
-Xcess is a lightweight, express-like and easy-to-use web framework for Node.js, inspired by Express.js. It provides a simple API for creating web applications and handling HTTP requests and responses. With Xpress, you can define routes, use middleware functions, handle static file serving, and enable Cross-Origin Resource Sharing (CORS).
+Xcess is a lightweight, express-like and easy-to-use web framework for Node.js, inspired by Express.js. It provides a simple API for creating web applications and handling HTTP requests and responses. With Xcess, you can define routes, use middleware functions, handle static file serving, and enable Cross-Origin Resource Sharing (CORS).
 
 ## Features
 
