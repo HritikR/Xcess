@@ -40,6 +40,21 @@ class Xpress {
         this.routes.ALL[path] = handler;
     }
 
+    // use method handler
+    use(path, handler) {
+        if (typeof path === 'function') {
+            this.middlewares.push(path);
+        } else {
+            this.middlewares.push((req, res, next) => {
+                if (req.url.startsWith(path) || path === '/' || path === '*') {
+                    handler(req, res, next);
+                } else {
+                    next();
+                }
+            });
+        }
+    }
+
     // function to route the request to respective method handlers
     #handleRequest(req, res) {
         const { method, url } = req;
@@ -52,10 +67,24 @@ class Xpress {
         }
     }
 
+    #handleMiddlewares(req, res) {
+        // Implement the next() function
+        const next = () => {
+            this.handleMiddlewares(req, res);
+        };
+
+        const currentMiddleware = this.middlewares.shift();
+        if (currentMiddleware) {
+            currentMiddleware(req, res, next);
+        } else {
+            this.#handleRequest(req, res);
+        }
+    }
+
     // Start listening on the specified port with the given callback
     listen(port, callback) {
         const server = http.createServer((req, res) => {
-            this.#handleRequest(req, res);
+            this.#handleMiddlewares(req, res);
         });
         server.listen(port, callback);
     }
